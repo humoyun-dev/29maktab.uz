@@ -1,5 +1,6 @@
 import { BlogInterface } from "@/interfaces/blog.interface";
 import api from "@/api.json";
+import axios from "axios";
 
 export const BlogService = {
   async getAllBlogs() {
