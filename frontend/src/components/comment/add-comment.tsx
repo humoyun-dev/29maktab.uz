@@ -6,7 +6,7 @@ const AddComment = () => {
   const [rate, setRate] = useState<number>(4);
   const [auth, setAuth] = useState<boolean>(false);
   return (
-    <div className={`mt-5`}>
+    <div className={`mt-1`}>
       <Rating value={rate} onChange={(value: number) => setRate(value)} />
       <div className={`relative duration-300 `}>
         {/*@ts-ignore*/}

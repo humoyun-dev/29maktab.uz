@@ -29,7 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className={inter.className + "relative"}>
       <Navbar />
-      <main className={`mx-auto w-10/12`}>{children}</main>
+      <main className={`mx-auto `}>{children}</main>
       <Footer />
       <button
         className={`duration-300 ${

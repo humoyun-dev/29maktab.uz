@@ -1,13 +1,11 @@
+import {CommentInterface} from "@/interfaces/comment.interface";
+
 export interface BlogInterface {
   id: number;
   title: string;
   content: string;
+  comment: CommentInterface[];
   slug: string;
-  image: BlogImageInterface[];
-  video: string;
-}
-
-interface BlogImageInterface {
-  id: number;
   image: string;
+  video: string;
 }

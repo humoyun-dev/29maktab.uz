@@ -5,7 +5,7 @@ import { AddComment } from "@/components";
 
 const Comment: React.FC = () => {
   return (
-    <div className={`my-5 flex items-start justify-between gap-x-4`}>
+    <div className={`mt-1 flex items-start justify-between gap-x-4`}>
       <div
         className={`w-2/12 sticky py-10 top-24 rounded-lg shadow-md border bg-gray-100 p-4 flex flex-col gap-y-2 items-center justify-center`}
       >
