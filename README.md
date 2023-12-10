@@ -1,3 +1,19 @@
+# 29maktab.uz frontend
+The frontend of the 29maktab.uz site built on the nextjs framework
+
+### Installation
+1. Open frontend folder
+2. Run a command on terminal:
+   
+    ```bash 
+    $ yarn
+    ```
+    ```bash 
+    $ yarn dev
+    ```
+
+<hr/>
+<br/>
 
 # 29maktab.uz backend
 The backend of the 29maktab.uz site built on the django framework
