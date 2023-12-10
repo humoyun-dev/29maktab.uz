@@ -1,11 +1,13 @@
 import React from "react";
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Layout from "@/layout/layout";
 import Link from "next/link";
 import { Input, List, ListItem } from "@material-tailwind/react";
 import { BlogCard } from "@/components";
+import { BlogService } from "@/services/blog.service";
+import { BlogListInterface } from "@/interfaces/blog-list.interface";
 
-const BlogPage: NextPage<BlogPageProps> = () => {
+const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
   return (
     <Layout>
       <div className={`flex sticky items-start justify-between gap-x-4`}>
@@ -50,15 +52,9 @@ const BlogPage: NextPage<BlogPageProps> = () => {
           </div>
           <hr />
           <div className={`grid grid-cols-4 gap-6 my-4 pr-3`}>
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
+            {blogs.results.map((i) => (
+              <BlogCard data={i} key={i.id} />
+            ))}
           </div>
         </div>
       </div>
@@ -68,4 +64,17 @@ const BlogPage: NextPage<BlogPageProps> = () => {
 
 export default BlogPage;
 
-interface BlogPageProps {}
+export const getServerSideProps: GetServerSideProps<
+  BlogPageProps
+> = async () => {
+  const blogs = await BlogService.getAllBlogs();
+  return {
+    props: {
+      blogs,
+    },
+  };
+};
+
+interface BlogPageProps {
+  blogs: BlogListInterface;
+}

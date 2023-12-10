@@ -9,6 +9,7 @@ export { default as Footer } from "./navigation/footer";
 
 // Cards
 export { default as BlogCard } from "./card/blog-card";
+export { default as SlugCard } from "./card/slug-card";
 
 //Comments
 export { default as AddComment } from "./comment/add-comment";
