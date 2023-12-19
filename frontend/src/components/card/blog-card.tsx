@@ -1,35 +1,47 @@
+// Import statements
 import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { BlogInterface } from "@/interfaces/blog.interface";
+import { BlogInterface } from "@/interfaces/blog/blog.interface";
+import moment from "moment";
 
+// BlogCard component definition
 const BlogCard: React.FC<BlogCardProps> = ({ data }) => {
   const router = useRouter();
 
-  const item =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+  // Click event handler for navigating to the blog page
+  const handleCardClick = async () => {
+    await router.push(`/blog/${data.slug}`);
+  };
+
   return (
     <div
-      onClick={() => router.push(`/blog/${data.slug}`)}
-      className={`flex flex-col group cursor-pointer`}
+      onClick={handleCardClick}
+      className="flex flex-col group cursor-pointer"
     >
-      <div className={`overflow-hidden shadow-md rounded-lg`}>
+      {/* Image Section */}
+      <div className="overflow-hidden shadow-md rounded-lg">
         <Image
+          priority={true}
           src={data.image}
-          alt={"aldf"}
+          alt="Blog Image"
           width={999}
           height={999}
-          className={`rounded-lg w-full group-hover:scale-110 duration-300 bg-gray-500`}
+          className="rounded-lg w-full md:h-[200px] h-[150px] object-cover group-hover:scale-110 duration-300 bg-gray-500"
         />
       </div>
-      <div className={`flex items-start justify-between`}>
-        <div className={`w-2/12 p-1`}>
-          <Image src={"/logo.png"} alt={"logo"} width={999} height={999} />
+
+      {/* Blog Information Section */}
+      <div className="flex items-start justify-between mt-1">
+        <div className="md:w-2/12 hidden p-1">
+          <Image src="/logo.png" alt="Logo" width={999} height={999} />
         </div>
-        <div className={`w-10/12 `}>
-          <h1 className={`text font-[500]`}>{data.title}</h1>
-          <p className={`text-gray-600 underline underline-offset-4`}>
-            2023/12/7 00:48
+        <div className="md:w-10/12 w-full">
+          <h1 className="text font-[500]">{data.title}</h1>
+          <p className="text-gray-600 underline underline-offset-4">
+            {moment(data.created_at)
+              .utcOffset("Asia/Tashkent")
+              .format("YYYY/MM/DD, HH:mm")}
           </p>
         </div>
       </div>
@@ -37,8 +49,10 @@ const BlogCard: React.FC<BlogCardProps> = ({ data }) => {
   );
 };
 
+// Default export
 export default BlogCard;
 
+// Props interface
 interface BlogCardProps {
   data: BlogInterface;
 }

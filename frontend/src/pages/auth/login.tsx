@@ -1,19 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { Input } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
-import { Register } from "@/components";
+import { Loading, Register } from "@/components";
+import axios from "axios";
+import api from "@/api.json";
+import { router } from "next/client";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setMassage,
+  setToken,
+  setUserData,
+} from "@/redux/reducers/user.reducer";
+import { toast } from "react-toastify";
 
 const LoginPage: NextPage<LoginPageProps> = () => {
+  const dispatch = useDispatch();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const [open, setOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const OpenOrCloseRegister = () => {
     setOpen((open) => !open);
   };
+  const handlerLogin = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${api.api}/users/login/`, {
+        phone_number: username,
+        password: password,
+      });
+      if (response.status === 200) {
+        await router.push("/");
+        setLoading(false);
+        dispatch(setUserData(response.data.user_data));
+        dispatch(setToken(response.data.token));
+        dispatch(setMassage(response.data.message));
+
+        toast.success(response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem(
+          "user-data",
+          JSON.stringify(response.data.user_data),
+        );
+      } else {
+        console.log(response);
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
+  };
+
+  const valid = username && password;
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div
@@ -39,7 +96,9 @@ const LoginPage: NextPage<LoginPageProps> = () => {
         </svg>
         Bosh sahifa
       </Link>
-      <div className={`w-1/3 bg-neutral-50 border rounded-lg p-8 shadow-md`}>
+      <div
+        className={`md:w-1/3 w-11/12 bg-neutral-50 border rounded-lg p-8 shadow-md`}
+      >
         <div
           className={`mx-auto w-full text-center mb-6 flex flex-col items-center justify-center`}
         >
@@ -55,7 +114,6 @@ const LoginPage: NextPage<LoginPageProps> = () => {
           >{`29-Ixtisoslashgan Davlat Umumta'lim Maktabi`}</h3>
         </div>
         <form className={`gap-y-4 flex flex-col`}>
-          {/*@ts-ignore*/}
           <Input
             type={"text"}
             variant="outlined"
@@ -65,8 +123,9 @@ const LoginPage: NextPage<LoginPageProps> = () => {
             label="Email or Username"
             className={`w-full`}
             name={`username`}
+            crossOrigin={undefined}
           />
-          {/*@ts-ignore*/}
+
           <Input
             variant="outlined"
             size={"lg"}
@@ -76,10 +135,20 @@ const LoginPage: NextPage<LoginPageProps> = () => {
             required={true}
             name={`password`}
             className={`w-full`}
+            crossOrigin={undefined}
           />
           <button
-            type={"submit"}
-            className={`w-full mt-3 bg-black text-white py-2 text-lg rounded-lg`}
+            type={"button"}
+            onClick={
+              !valid
+                ? () => {
+                    return false;
+                  }
+                : () => handlerLogin()
+            }
+            className={`w-full mt-3 bg-black duration-300 text-white py-2 text-lg rounded-lg ${
+              !valid ? "bg-gray-600" : ""
+            }`}
           >
             Kirish
           </button>

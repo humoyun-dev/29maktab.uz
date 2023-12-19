@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Inter } from "next/font/google";
 import { Footer, Navbar } from "@/components";
-
-const inter = Inter({ subsets: ["latin"] });
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -27,7 +26,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <div className={inter.className + "relative"}>
+    <div className={"relative"}>
+      <ToastContainer className={`!z-[99999]`} />
       <Navbar />
       <main className={`mx-auto `}>{children}</main>
       <Footer />

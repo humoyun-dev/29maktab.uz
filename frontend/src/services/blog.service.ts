@@ -1,7 +1,7 @@
-import { BlogInterface } from "@/interfaces/blog.interface";
+import { BlogInterface } from "@/interfaces/blog/blog.interface";
 import api from "@/api.json";
 import axios from "axios";
-import { BlogListInterface } from "@/interfaces/blog-list.interface";
+import { BlogListInterface } from "@/interfaces/blog/blog-list.interface";
 
 export const BlogService = {
   async getAllBlogs() {

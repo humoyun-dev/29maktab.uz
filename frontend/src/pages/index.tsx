@@ -13,9 +13,9 @@ const HomePage: NextPage<HomePageProps> = () => {
 
   return (
     <Layout>
-      <div className={`w-10/12 mx-auto`}>
+      <div className={`md:w-10/12 mx-auto w-11/12`}>
         <Carousel
-          className="rounded-lg h-[600px] mt-2"
+          className="rounded-lg md:h-[600px] mt-2 h-[300px]"
           loop={true}
           navigation={({ setActiveIndex, activeIndex, length }) => (
             <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">

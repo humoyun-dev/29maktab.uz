@@ -1,94 +1,109 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSideProps, NextPage } from "next";
 import Layout from "@/layout/layout";
-import ReactPlayer from "react-player/youtube";
-import Image from "next/image";
-import { Comment, SlugCard } from "@/components";
+import { Comments, Loading, SlugCard } from "@/components";
 import { BlogService } from "@/services/blog.service";
-import { BlogInterface } from "@/interfaces/blog.interface";
+import { BlogInterface } from "@/interfaces/blog/blog.interface";
+import { BlogListInterface } from "@/interfaces/blog/blog-list.interface";
 
-const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ data }) => {
+interface BlogDetailPageProps {
+  data: BlogInterface;
+  blog: BlogListInterface;
+}
+
+const BlogDetailPage: NextPage<BlogDetailPageProps> = ({ data, blog }) => {
+  const [show, setShow] = useState<boolean>(false);
+  if (!data || !blog) {
+    return <Loading />;
+  }
+
   return (
     <Layout>
-      <div className={`flex items-start justify-between gap-x-2 mt-1`}>
-        <div className={`w-9/12 px-2`}>
-          <div className={`w-full rounded-xl overflow-hidden h-[600px]`}>
-            <ReactPlayer
-              width={"100%"}
-              height={"100%"}
-              url={`https://youtu.be/l-qZpmJgXZY?si=R9h7yCAOzikJzH9L`}
-            />
+      <div
+        className={`flex md:flex-row flex-col items-start justify-between md:gap-x-2 mt-1 gap-y-5`}
+      >
+        <div className={`md:w-9/12 w-11/12 px-2 mx-auto md:mx-0`}>
+          <div className={`aspect-video rounded-xl overflow-hidden`}>
+            <iframe
+              width="100%"
+              height="100%"
+              src={`https://www.youtube.com/embed/${data.video}`}
+              title={data.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
           </div>
           <div className={`flex my-2 items-start gap-x-4`}>
-            <div className={`w-1/12`}>
-              <Image
-                src={`/logo.png`}
-                alt={"logo"}
-                height={999}
-                width={999}
-                className={`w-16 h-16`}
-              />
-            </div>
-            <div className={`w-11/12`}>
-              <h1 className={`text-3xl font-semibold`}></h1>
-              <p className={``}>
-                {`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
-                nisi nulla, faucibus posuere dui sed, aliquam egestas dui. Vivamus
-                ut venenatis ante, sed dignissim ex. Phasellus rutrum gravida
-                nulla vitae efficitur. Aliquam tempus, risus laoreet rutrum
-                sollicitudin, diam ligula gravida metus, at pulvinar ex arcu sit
-                amet orci. Duis tincidunt lectus ac auctor faucibus. Cras at
-                mauris nec leo tempor volutpat. Fusce porta non sem ac lacinia.
-                Cras ullamcorper tellus ut blandit placerat. Phasellus maximus
-                viverra libero, non volutpat massa malesuada et. Aenean commodo
-                libero varius volutpat varius. Aliquam pretium, dolor eget porta
-                `}
-              </p>
+            <div className={`md:px-16 mt-4`}>
+              <h1 className={`text-3xl mb-3 font-semibold`}>{data.title}</h1>
+              {show ? (
+                <div>
+                  <div
+                    className={`text-gray-800`}
+                    dangerouslySetInnerHTML={{
+                      __html: data.content,
+                    }}
+                  ></div>
+                  <p
+                    onClick={() => setShow((show) => !show)}
+                    className={`underline underline-offset-4 text-orange-600 hover:text-black duration-300 text-lg text-center`}
+                  >{`Kamroq`}</p>
+                </div>
+              ) : (
+                <div className={`relative`}>
+                  <div
+                    className={`text-gray-800`}
+                    dangerouslySetInnerHTML={{
+                      __html: data.content.slice(0, 300),
+                    }}
+                  ></div>
+                  <p
+                    onClick={() => setShow((show) => !show)}
+                    className={`underline underline-offset-4 text-orange-600 hover:text-black duration-300 text-lg text-center`}
+                  >{`Ko'proq`}</p>
+                </div>
+              )}
             </div>
           </div>
           <div>
             <hr className={`my-3`} />
-            <Comment />
+            <Comments blog_id={data.id} book_id={null} data={data.comments} />
           </div>
         </div>
 
-        <ul className={`w-3/12 px-2 flex flex-col gap-y-3`}>
-          <li>
-            <SlugCard />
-          </li>
-          <li>
-            <SlugCard />
-          </li>
-          <li>
-            <SlugCard />
-          </li>
-          <li>
-            <SlugCard />
-          </li>
-          <li>
-            <SlugCard />
-          </li>
+        <ul
+          className={`md:w-3/12 w-11/12 md:mx-0 mx-auto px-2 md:flex flex-col gap-y-3`}
+        >
+          {blog.results.map((i) => (
+            <li key={i.id}>
+              <SlugCard data={i} />
+            </li>
+          ))}
         </ul>
       </div>
     </Layout>
   );
 };
 
-export default BlogDetailPage;
-
-// @ts-ignore
 export const getServerSideProps: GetServerSideProps<
   BlogDetailPageProps
 > = async ({ query }) => {
-  const slug = query.slug;
-  const data = BlogService.getBlogsBySlug(slug as string);
-  return {
-    props: {
-      data: data,
-    },
-  };
-};
+  try {
+    const slug = query.slug as string;
+    const data = await BlogService.getBlogsBySlug(slug);
+    const blog = await BlogService.getAllBlogs();
 
-export interface BlogDetailPageProps {
-  data: BlogInterface;
-}
+    return {
+      props: {
+        data,
+        blog,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {
+      notFound: true,
+    };
+  }
+};
+export default BlogDetailPage;
