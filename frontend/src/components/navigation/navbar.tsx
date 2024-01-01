@@ -83,6 +83,7 @@ const Navbar: React.FC = () => {
             {[
               { path: "/", label: "Bosh sahifa" },
               { path: "/blog", label: "Maqola" },
+              { path: "/exams", label: "Exams" },
               { path: "/library", label: "Kutubxona" },
               { path: "/about", label: "Maktab haqida" },
               { path: "/contact", label: "Aloqa" },

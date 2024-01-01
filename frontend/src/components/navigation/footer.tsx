@@ -7,19 +7,8 @@ const Footer: React.FC = () => {
     <div className={`border-t mt-2 border-black/30 `}>
       <div className={`w-10/12 mx-auto md:mb-0 mb-5 pt-6`}>
         <div
-          className={`grid md:grid-cols-3 border-b pb-5 border-black/30 items-start justify-center`}
+          className={`grid md:grid-cols-2 border-b pb-5 border-black/30 items-start justify-center`}
         >
-          <div>
-            <ul>
-              <li className={`uppercase font-semibold`}>Biz haqimizda</li>
-              <li
-                className={`text-sm hover:underline underline-offset-4 cursor-pointer font-sans font-light mt-4`}
-              >{`O'zbekiston boyicha topshirish punktlari`}</li>
-              <li
-                className={`text-sm hover:underline underline-offset-4 cursor-pointer font-sans font-light mt-2`}
-              >{`Vakansiyalar`}</li>
-            </ul>
-          </div>
           <div>
             <ul>
               <li className={`uppercase font-semibold`}>Foydalanuvchilarga</li>
