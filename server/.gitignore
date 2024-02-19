@@ -12,4 +12,3 @@ Pipfile.lock
 # for app
 media/
 db.sqlite3
-staticfiles/
