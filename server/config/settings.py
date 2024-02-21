@@ -72,6 +72,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    'https://api.29maktab.uz',
     "https://29maktab.uz",
     "http://localhost:3000",
 ]
