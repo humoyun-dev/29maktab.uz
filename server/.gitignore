@@ -3,7 +3,7 @@
 
 # virtual env folder
 venv
-env
+env/
 Pipfile.lock
 
 # code editor settings
