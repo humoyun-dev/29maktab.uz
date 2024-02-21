@@ -71,6 +71,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://api.29maktab.uz' , 'https://*.127.0.0.1']
+
 CORS_ALLOWED_ORIGINS = [
     'https://api.29maktab.uz',
     "https://29maktab.uz",
@@ -78,7 +80,6 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 ROOT_URLCONF = 'config.urls'
-CSRF_TRUSTED_ORIGINS = ['https://api.29maktab.uz' , 'https://*.127.0.0.1']
 
 TEMPLATES = [
     {
