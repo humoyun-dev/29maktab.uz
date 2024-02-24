@@ -77,6 +77,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://api.29maktab.uz',
     "https://29maktab.uz",
     "http://localhost:3000",
+    "http://localhost:5173",
 ]
 
 ROOT_URLCONF = 'config.urls'
