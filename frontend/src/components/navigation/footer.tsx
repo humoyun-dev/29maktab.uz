@@ -5,7 +5,7 @@ import { Typography } from "@material-tailwind/react";
 const Footer: React.FC = () => {
   return (
     <div className={`border-t mt-2 border-black/30 `}>
-      <div className={`w-10/12 mx-auto md:mb-0 mb-5 pt-6`}>
+      <div className={`container mx-auto md:mb-0 mb-5 pt-6`}>
         <div
           className={`grid md:grid-cols-2 border-b pb-5 border-black/30 items-start justify-center`}
         >

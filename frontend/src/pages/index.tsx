@@ -3,6 +3,7 @@ import { NextPage } from "next";
 import { Loading } from "@/components";
 import Layout from "@/layout/layout";
 import { Carousel, IconButton } from "@material-tailwind/react";
+import CustomImage from "@/components/image";
 
 const HomePage: NextPage<HomePageProps> = () => {
   const [loading, setLoading] = useState(false);
@@ -13,7 +14,7 @@ const HomePage: NextPage<HomePageProps> = () => {
 
   return (
     <Layout>
-      <div className={`md:w-10/12 mx-auto w-11/12`}>
+      <div className={`mx-auto container`}>
         <Carousel
           className="rounded-lg md:h-[600px] mt-2 h-[300px]"
           loop={true}
@@ -79,17 +80,17 @@ const HomePage: NextPage<HomePageProps> = () => {
             </IconButton>
           )}
         >
-          <img
+          <CustomImage
             src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
             alt="image 1"
             className="h-full w-full object-cover"
           />
-          <img
+          <CustomImage
             src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
             alt="image 2"
             className="h-full w-full object-cover"
           />
-          <img
+          <CustomImage
             src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
             alt="image 3"
             className="h-full w-full object-cover"

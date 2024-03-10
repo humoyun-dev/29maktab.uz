@@ -6,8 +6,8 @@ import Link from "next/link";
 import { Loading, Register } from "@/components";
 import axios from "axios";
 import api from "@/api.json";
-import { router } from "next/client";
-import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router"; // Import useRouter hook
+import { useDispatch } from "react-redux";
 import {
   setMassage,
   setToken,
@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 
 const LoginPage: NextPage<LoginPageProps> = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -34,7 +35,7 @@ const LoginPage: NextPage<LoginPageProps> = () => {
         password: password,
       });
       if (response.status === 200) {
-        await router.push("/");
+        await router.push("/")
         setLoading(false);
         dispatch(setUserData(response.data.user_data));
         dispatch(setToken(response.data.token));

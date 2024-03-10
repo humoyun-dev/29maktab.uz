@@ -54,7 +54,7 @@ const AboutPage: NextPage<AboutPageProps> = () => {
       <div className={`md:my-10`}>
         <Fade bottom cascade>
           <div
-            className={`md:w-10/12 w-11/12 mx-auto md:flex-row flex-col flex justify-around items-center`}
+            className={`container mx-auto md:flex-row flex-col flex justify-around items-center`}
           >
             <Image
               src={`/images/director.jpg`}
@@ -96,7 +96,7 @@ const AboutPage: NextPage<AboutPageProps> = () => {
               to'g'risida qisqacha .`}
           </h3>
         </div>
-        <div className={`my-4 md:w-10/12 w-11/12 mx-auto`}>
+        <div className={`my-4 container mx-auto`}>
           <Fade bottom cascade>
             <div
               className={`flex md:flex-row flex-col items-center justify-around my-20`}
@@ -158,7 +158,7 @@ const AboutPage: NextPage<AboutPageProps> = () => {
           </Fade>
         </div>
       </div>
-      <div className={`w-10/12 mx-auto md:h-[600px] h-[300px]`}>
+      <div className={`container mx-auto md:h-[600px] h-[300px]`}>
         <YMaps preload={true}>
           <Map
             className={`h-[600px] w-full`}

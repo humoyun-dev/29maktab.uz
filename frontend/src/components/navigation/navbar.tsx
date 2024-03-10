@@ -64,7 +64,7 @@ const Navbar: React.FC = () => {
         className={`w-full sticky top-0 z-[99998] bg-white/70 backdrop-blur-md py-2 mx-auto border-b`}
       >
         <div
-          className={`md:w-10/12 w-11/12 mx-auto flex justify-between items-center`}
+          className={`container mx-auto flex justify-between items-center`}
         >
           <div
             onClick={() => router.push("/")}
@@ -83,7 +83,6 @@ const Navbar: React.FC = () => {
             {[
               { path: "/", label: "Bosh sahifa" },
               { path: "/blog", label: "Maqola" },
-              { path: "/exams", label: "Exams" },
               { path: "/library", label: "Kutubxona" },
               { path: "/about", label: "Maktab haqida" },
               { path: "/contact", label: "Aloqa" },

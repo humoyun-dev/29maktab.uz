@@ -120,10 +120,10 @@ const ContactPage: NextPage<ContactPageProps> = () => {
           <p className={`font-light`}>Dushanba-Shanba: 7:30-17:30</p>
         </div>
       </div>
-      <div className={`w-10/12 mx-auto md:h-[600px] h-[300px]`}>
+      <div className={`w-10/12 mx-auto md:h-[600px] `}>
         <YMaps preload={true}>
           <Map
-            className={`h-[600px] w-full`}
+            className={`md:h-[600px] h-[400px] w-full`}
             defaultState={{
               center: [41.3576202, 69.1840336],
               zoom: 17,

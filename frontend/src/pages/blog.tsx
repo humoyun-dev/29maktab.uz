@@ -20,7 +20,7 @@ const BlogPage: NextPage<BlogPageProps> = ({ blogs }) => {
   return (
     <Layout>
       <div className="flex sticky items-start justify-between gap-x-4">
-        <div className="md:w-10/12 w-11/12 min-h-screen mx-auto">
+        <div className="container min-h-screen mx-auto">
           <div className="flex md:flex-row flex-col-reverse items-center justify-between py-2 px-1">
             <div className="text-sm breadcrumbs">
               <ul>
